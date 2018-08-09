@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutumnBox.Basic;
 using AutumnBox.Basic.Device;
-using AutumnBox.OpenFramework;
 using AutumnBox.OpenFramework.Open;
 using AutumnBox.OpenFramework.Extension;
 using AutumnBoxExtension_Captiveportal.Classes;
@@ -29,6 +23,10 @@ namespace AutumnBoxExtension_Captiveportal
             var devBasicInfo = TargetDevice;
             var androidVersion = new DeviceBuildPropGetter(devBasicInfo).GetAndroidVersion();
             string st1 = null;
+
+            
+
+            Logger.Info(NewExt.cConfig.version.ToString());
 
             App.ShowLoadingWindow();
             try
