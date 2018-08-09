@@ -28,9 +28,17 @@ namespace AutumnBoxExtension_Captiveportal
         {
             var devBasicInfo = TargetDevice;
             var androidVersion = new DeviceBuildPropGetter(devBasicInfo).GetAndroidVersion();
+            string st1 = null;
 
             App.ShowLoadingWindow();
-            var st1 = new AdbCommand().V2N(androidVersion, devBasicInfo);
+            try
+            {
+                st1 = new AdbCommand().V2N(androidVersion, devBasicInfo);
+            }
+            catch (Exception e)
+            {
+                Logger.Warn("执行ADB命令错误");
+            }
             App.CloseLoadingWindow();
 
             App.RunOnUIThread(() =>
