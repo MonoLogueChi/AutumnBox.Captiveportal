@@ -23,7 +23,7 @@ namespace AutumnBoxExtension_Captiveportal
         /// <summary>
         /// 模块版本号，暂时未找到获取自身版本号接口
         /// </summary>
-        private Version thisVersion = Version.Parse("0.0.10");
+        private Version thisVersion = Version.Parse("0.0.9");
 
 
 
