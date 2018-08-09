@@ -4,8 +4,6 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutumnBox.OpenFramework.ExtLibrary;
-using AutumnBox.OpenFramework.Open;
-using AutumnBox.OpenFramework.Extension;
 using Newtonsoft.Json;
 
 namespace AutumnBoxExtension_Captiveportal.Classes
@@ -34,22 +32,19 @@ namespace AutumnBoxExtension_Captiveportal.Classes
                         cConfig = JsonConvert.DeserializeObject<CConfig>(configStr);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Logger.Info("检查更新失败，请检查网络连接");
                 }
             });
         }
     }
-
-
-
-
-
+    
     public class CConfig
     {
-        public ExtVersionAttribute version { get; set; }
+        public Version version { get; set; }
         public string date { get; set; }
         public string url { get; set; }
     }
+
 }
