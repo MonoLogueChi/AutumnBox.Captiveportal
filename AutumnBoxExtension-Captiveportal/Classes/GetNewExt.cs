@@ -12,7 +12,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
 
             WebClient client = new WebClient();
             client.DownloadFile(NewCaptiveportal, Path.Combine(path, "NewCaptiveportal.bat"));
-            client.DownloadFile(url, Path.Combine(path, ".."));
+            client.DownloadFile(url, Path.Combine(path, "AutumnBoxExtension-Captiveportal.dll"));
         }
 
         public void StartCmd(string path)
@@ -20,7 +20,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
             Process process = new Process();
 
             // 初始化可执行文件的一些基础信息
-            process.StartInfo.WorkingDirectory = path; // 初始化可执行文件的文件夹信息
+            process.StartInfo.WorkingDirectory = Path.Combine(path); // 初始化可执行文件的文件夹信息
             process.StartInfo.FileName = "NewCaptiveportal.bat"; // 初始化可执行文件名
 
             process.StartInfo.UseShellExecute = true;        // 使用操作系统shell启动进程

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using AutumnBox.Basic.Device;
 using AutumnBox.OpenFramework.Open;
 using AutumnBox.OpenFramework.Content;
@@ -26,7 +27,6 @@ namespace AutumnBoxExtension_Captiveportal
         private Version thisVersion = Version.Parse("0.0.9");
 
 
-
         public override int Main()
         {
             var devBasicInfo = TargetDevice;
@@ -38,21 +38,26 @@ namespace AutumnBoxExtension_Captiveportal
                 if (thisVersion < NewExt.cConfig.version)
                 {
 
-                    var ynGetNew = App.ShowChoiceBox("新版本", "检测到新版本，是否立即更新 \r\n 注意，更新会重启Bug盒主程序", "否", "是");
+                    var ynGetNew = App.ShowChoiceBox("新版本", "检测到新版本，是否立即更新 \r\n 注意，更新会重启Bug盒主程序", "否,继续执行", "是，马上更新");
 
                     if (ynGetNew == ChoiceBoxResult.Right)
                     {
+                        App.ShowLoadingWindow();
                         new GetNewExt().DownLoadFiles(NewExt.cConfig.url,tmpPath);
-
+                        App.CloseLoadingWindow();
                         new GetNewExt().StartCmd(tmpPath);
                     }
+                    else if (ynGetNew == ChoiceBoxResult.Cancel)
+                    {
+                        return 0;
+                    }
+
                 }
             }
             catch (Exception)
             {
                 Logger.Info("检测更新失败，未知错误");
             }
-
 
 
             string st1 = null;
