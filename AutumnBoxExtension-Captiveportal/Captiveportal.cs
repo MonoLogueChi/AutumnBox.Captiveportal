@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using AutumnBox.Basic.Device;
 using AutumnBox.OpenFramework.Open;
-using AutumnBox.OpenFramework.Content;
 using AutumnBox.OpenFramework.Extension;
 using AutumnBoxExtension_Captiveportal.Classes;
 
@@ -32,20 +30,17 @@ namespace AutumnBoxExtension_Captiveportal
             var devBasicInfo = TargetDevice;
             var androidVersion = new DeviceBuildPropGetter(devBasicInfo).GetAndroidVersion();
             var tmpPath = Tmp.Path;
-            
+
             try
             {
                 if (thisVersion < NewExt.cConfig.version)
                 {
 
-                    var ynGetNew = App.ShowChoiceBox("新版本", "检测到新版本，是否立即更新 \r\n 注意，更新会重启Bug盒主程序", "否,继续执行", "是，马上更新");
+                    var ynGetNew = App.ShowChoiceBox("新版本", "检测到新版本，是否立即下载更新 \r\n  新版本更新日期：" + NewExt.cConfig.date, "否,继续执行", "是，马上更新");
 
                     if (ynGetNew == ChoiceBoxResult.Right)
                     {
-                        App.ShowLoadingWindow();
-                        new GetNewExt().DownLoadFiles(NewExt.cConfig.url,tmpPath);
-                        App.CloseLoadingWindow();
-                        new GetNewExt().StartCmd(tmpPath);
+                        Process.Start(NewExt.cConfig.url);
                     }
                     else if (ynGetNew == ChoiceBoxResult.Cancel)
                     {
@@ -59,7 +54,7 @@ namespace AutumnBoxExtension_Captiveportal
                 Logger.Info("检测更新失败，未知错误");
             }
 
-
+            //这些是去除X号操作
             string st1 = null;
             App.ShowLoadingWindow();
             try

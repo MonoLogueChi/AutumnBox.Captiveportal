@@ -35,13 +35,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutumnBox.Basic, Version=2018.6.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutumnBox.SDK.8.0.4-beta\lib\net45\AutumnBox.Basic.dll</HintPath>
+      <HintPath>..\packages\AutumnBox.SDK.8.0.5-beta\lib\net45\AutumnBox.Basic.dll</HintPath>
     </Reference>
     <Reference Include="AutumnBox.Basic.Flows, Version=2018.4.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutumnBox.SDK.8.0.4-beta\lib\net45\AutumnBox.Basic.Flows.dll</HintPath>
+      <HintPath>..\packages\AutumnBox.SDK.8.0.5-beta\lib\net45\AutumnBox.Basic.Flows.dll</HintPath>
     </Reference>
-    <Reference Include="AutumnBox.OpenFramework, Version=8.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutumnBox.SDK.8.0.4-beta\lib\net45\AutumnBox.OpenFramework.dll</HintPath>
+    <Reference Include="AutumnBox.OpenFramework, Version=8.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutumnBox.SDK.8.0.5-beta\lib\net45\AutumnBox.OpenFramework.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -61,7 +61,6 @@
     <Compile Include="Captiveportal.cs" />
     <Compile Include="Classes\AdbCommand.cs" />
     <Compile Include="Classes\FindStatus.cs" />
-    <Compile Include="Classes\GetNewExt.cs" />
     <Compile Include="Classes\NewExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
