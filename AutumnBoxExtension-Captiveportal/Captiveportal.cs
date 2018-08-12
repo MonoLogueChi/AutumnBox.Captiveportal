@@ -41,6 +41,7 @@ namespace AutumnBoxExtension_Captiveportal
                     if (ynGetNew == ChoiceBoxResult.Right)
                     {
                         Process.Start(NewExt.cConfig.url);
+                        return 0;
                     }
                     else if (ynGetNew == ChoiceBoxResult.Cancel)
                     {
