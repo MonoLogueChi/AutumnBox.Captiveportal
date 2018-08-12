@@ -11,11 +11,11 @@ namespace AutumnBoxExtension_Captiveportal.Classes
 
         public string V2N(Version version, DeviceBasicInfo deviceInfo)
         {
-            if (version < new Version("5.0.0")) return "低安卓版本无需去除叹号";
-            if (version < new Version("7.0.0")) return Com1(deviceInfo);
-            if (version < new Version("7.1.1")) return Com2(deviceInfo);
-            if (version < new Version("7.1.2")) return Com3(deviceInfo);
-            if (version < new Version("100.0.0")) return Com4(deviceInfo);
+            if (version < Version.Parse("5.0.0")) return "低安卓版本无需去除叹号";
+            if (version < Version.Parse("7.0.0")) return Com1(deviceInfo);
+            if (version < Version.Parse("7.1.1")) return Com2(deviceInfo);
+            if (version < Version.Parse("7.1.2")) return Com3(deviceInfo);
+            if (version < Version.Parse("100.0.0")) return Com4(deviceInfo);
             return "未知版本";
         }
 
