@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using AutumnBox.OpenFramework.Extension;
 using AutumnBox.OpenFramework.ExtLibrary;
 using Newtonsoft.Json;
+using AutumnBox.OpenFramework.Warpper;
 
 namespace AutumnBoxExtension_Captiveportal.Classes
 {
@@ -15,6 +20,8 @@ namespace AutumnBoxExtension_Captiveportal.Classes
         public override int TargetApiLevel { get; } = 8;
 
         public static CConfig cConfig = new CConfig();
+
+
 
         public override void Ready()
         {
@@ -38,8 +45,24 @@ namespace AutumnBoxExtension_Captiveportal.Classes
                 }
             });
         }
+
+        public bool IsLastVersion()
+        {
+            var info = new Dictionary<string, ExtInfoAttribute>();
+            var t = typeof(Captiveportal);
+            var b = t.GetCustomAttributes(typeof(ExtInfoAttribute), true);
+            foreach (ExtInfoAttribute eia in b)
+            {
+                info.Add(eia.Key, eia);
+            }
+
+            var oldVersion = info["ExtVersionAttribute"].Value as Version;
+
+            return oldVersion >= cConfig.version;
+
+        }
     }
-    
+
     public class CConfig
     {
         public Version version { get; set; }

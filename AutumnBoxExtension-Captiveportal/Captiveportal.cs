@@ -19,21 +19,14 @@ namespace AutumnBoxExtension_Captiveportal
     [ExtDesc("Could 一键去除Wi-FI x和!号，该模块目前处于测试状态，Can't 保证100%可用", Lang = "en-us")]
     public class Captiveportal : AutumnBoxExtension
     {
-        /// <summary>
-        /// 模块版本号，暂时未找到获取自身版本号接口
-        /// </summary>
-        private Version thisVersion = Version.Parse("0.0.9");
-
-
         public override int Main()
         {
             var devBasicInfo = TargetDevice;
             var androidVersion = new DeviceBuildPropGetter(devBasicInfo).GetAndroidVersion();
-            var tmpPath = Tmp.Path;
-
+            var newExt = new NewExt();
             try
             {
-                if (thisVersion < NewExt.cConfig.version)
+                if (!newExt.IsLastVersion())
                 {
 
                     var ynGetNew = App.ShowChoiceBox("新版本", "检测到新版本，是否立即下载更新 \r\n  新版本更新日期：" + NewExt.cConfig.date, "否,继续执行", "是，马上更新");
