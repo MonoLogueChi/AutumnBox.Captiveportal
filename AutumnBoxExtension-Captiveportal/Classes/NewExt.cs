@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using AutumnBox.OpenFramework.Extension;
 using AutumnBox.OpenFramework.ExtLibrary;
 using Newtonsoft.Json;
-using AutumnBox.OpenFramework.Warpper;
 
 namespace AutumnBoxExtension_Captiveportal.Classes
 {
@@ -18,10 +15,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
         public override string Name { get; } = "Captiveportal";
         public override int MinApiLevel { get; } = 8;
         public override int TargetApiLevel { get; } = 8;
-
-        public static CConfig cConfig = new CConfig();
-
-
+        public static CConfig CConfig { get; set; } = new CConfig();
 
         public override void Ready()
         {
@@ -32,11 +26,11 @@ namespace AutumnBoxExtension_Captiveportal.Classes
                     HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://gitee.com/monologuechi/AutumnBoxExtension-Captiveportal/raw/master/AutumnBoxExtension-Captiveportal/Captiveportal-info.json");
                     HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                     Stream stream = resp.GetResponseStream();
-                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8, true))
+                    using (StreamReader reader = new StreamReader(stream: stream, encoding: Encoding.UTF8, detectEncodingFromByteOrderMarks: true))
                     {
                         string configStr = reader.ReadToEnd();
                         reader.Close();
-                        cConfig = JsonConvert.DeserializeObject<CConfig>(configStr);
+                        CConfig = JsonConvert.DeserializeObject<CConfig>(configStr);
                     }
                 }
                 catch (Exception)
@@ -58,7 +52,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
 
             var oldVersion = info["ExtVersionAttribute"].Value as Version;
 
-            return oldVersion >= cConfig.version;
+            return oldVersion >= CConfig.version;
 
         }
     }

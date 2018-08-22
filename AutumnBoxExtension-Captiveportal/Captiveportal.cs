@@ -7,16 +7,16 @@ using AutumnBoxExtension_Captiveportal.Classes;
 
 namespace AutumnBoxExtension_Captiveportal
 {
-    [ExtName("一键去除Wi-FI x和!号模块")]
-    [ExtDesc("可以一键去除Wi-FI x和!号，该模块目前处于测试状态，不保证100%可用")]
-    [ExtAuth("MonoLogueChi")]
-    [ExtVersion(0, 0, 9)]
+    [ExtName(name: "一键去除Wi-FI x和!号模块")]
+    [ExtDesc(desc: "可以一键去除Wi-FI x和!号，该模块目前处于测试状态，不保证100%可用")]
+    [ExtAuth(auth: "MonoLogueChi")]
+    [ExtVersion(0, minor: 0, build: 9)]
     [ExtRequiredDeviceStates((DeviceState)2)]   //开机状态使用
-    [ExtMinApi(8)]
-    [ExtTargetApi(8)]
+    [ExtMinApi(value: 8)]
+    [ExtTargetApi(value: 8)]
     //英文介绍
-    [ExtName("一键去除Wi-FI x和!号模块-暂定", Lang = "en-us")]
-    [ExtDesc("Could 一键去除Wi-FI x和!号，该模块目前处于测试状态，Can't 保证100%可用", Lang = "en-us")]
+    [ExtName(name: "一键去除Wi-FI x和!号模块-暂定", Lang = "en-us")]
+    [ExtDesc(desc: "Could 一键去除Wi-FI x和!号，该模块目前处于测试状态，Can't 保证100%可用", Lang = "en-us")]
     public class Captiveportal : AutumnBoxExtension
     {
         public override int Main()
@@ -29,23 +29,22 @@ namespace AutumnBoxExtension_Captiveportal
                 if (!newExt.IsLastVersion())
                 {
 
-                    var ynGetNew = App.ShowChoiceBox("新版本", "检测到新版本，是否立即下载更新 \r\n  新版本更新日期：" + NewExt.cConfig.date, "否,继续执行", "是，马上更新");
+                    var ynGetNew = App.ShowChoiceBox("新版本", msg: $"检测到新版本，是否立即下载更新 \r\n  新版本更新日期：{NewExt.CConfig.date}", btnLeft: "否,继续执行", btnRight: "是，马上更新");
 
-                    if (ynGetNew == ChoiceBoxResult.Right)
+                    switch (ynGetNew)
                     {
-                        Process.Start(NewExt.cConfig.url);
-                        return 0;
-                    }
-                    else if (ynGetNew == ChoiceBoxResult.Cancel)
-                    {
-                        return 0;
+                        case ChoiceBoxResult.Right:
+                            Process.Start(NewExt.CConfig.url);
+                            return 0;
+                        case ChoiceBoxResult.Cancel:
+                            return 0;
                     }
 
                 }
             }
             catch (Exception)
             {
-                Logger.Info("检测更新失败，未知错误");
+                Logger.Info(msg: "检测更新失败，未知错误");
             }
 
             //这些是去除X号操作
@@ -57,18 +56,18 @@ namespace AutumnBoxExtension_Captiveportal
             }
             catch (Exception)
             {
-                Logger.Warn("执行ADB命令错误");
+                Logger.Warn(msg: "执行ADB命令错误");
             }
             App.CloseLoadingWindow();
 
             App.RunOnUIThread(() =>
             {
 
-                var ynReboot = App.ShowChoiceBox("结束", st1 + "\r\n 是否重启测试一下结果",
-                    "再等等", "现在重启");
+                var ynReboot = App.ShowChoiceBox("结束", msg: st1 + "\r\n 是否重启测试一下结果",
+                    btnLeft: "再等等", btnRight: "现在重启");
                 if (ynReboot == ChoiceBoxResult.Right)
                 {
-                    DeviceRebooter.Reboot(devBasicInfo, option: (RebootOptions)0);
+                    DeviceRebooter.Reboot(devBasicInfo, option: 0);
                 }
             });
 
