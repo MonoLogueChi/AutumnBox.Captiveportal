@@ -1,15 +1,15 @@
 ﻿using System;
 using AutumnBox.Basic.Device;
-using AutumnBox.Basic.Executer;
+using AutumnBox.Basic.Calling;
 
 namespace AutumnBoxExtension_Captiveportal.Classes
 {
     class AdbCommand
     {
         private readonly FindStatus _find = new FindStatus();
-        private readonly CommandExecuter executer = new CommandExecuter();
+        private readonly CommandExecutor _executer = new CommandExecutor();
 
-        public string V2N(Version version, DeviceBasicInfo deviceInfo)
+        public string V2N(Version version, IDevice deviceInfo)
         {
             if (version < Version.Parse("5.0.0")) return "低安卓版本无需去除叹号";
             if (version < Version.Parse("7.0.0")) return Com1(deviceInfo);
@@ -19,54 +19,39 @@ namespace AutumnBoxExtension_Captiveportal.Classes
             return "未知版本";
         }
 
-        private string Com1(DeviceBasicInfo deviceInfo)
+        private string Com1(IDevice deviceInfo)
         {
-            var command1 = Command.MakeForAdb(deviceInfo,
-                @"shell settings put global captive_portal_server connect.rom.miui.com/generate_204");
-            var command2 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_server");
-            executer.Execute(command1);
-            var output1 = executer.Execute(command2);
+            _executer.AdbShell(deviceInfo,
+                @"settings put global captive_portal_server connect.rom.miui.com/generate_204");
+            var output1 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_server").Output.Out;
 
             return "当前设置检测服务器为：" + output1;
         }
 
-        private string Com2(DeviceBasicInfo deviceInfo)
+        private string Com2(IDevice deviceInfo)
         {
-            var command0 = Command.MakeForAdb(deviceInfo, @"shell settings put global captive_portal_use_https 1");
-            var command1 = Command.MakeForAdb(deviceInfo,
-                @"shell settings put global captive_portal_server connect.rom.miui.com/generate_204");
-            var command2 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_server");
-            var command3 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_use_https");
-
-            executer.Execute(command0);
-            executer.Execute(command1);
-            var output1 = executer.Execute(command2);
-            var output2 = executer.Execute(command3);
-
+            _executer.AdbShell(deviceInfo, @"settings put global captive_portal_use_https 1");
+            _executer.AdbShell(deviceInfo,
+                @"settings put global captive_portal_server connect.rom.miui.com/generate_204");
+            var output1 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_server").Output.Out;
+            var output2 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_use_https").Output.Out;
 
             return "当前设置检测服务器为：" + output1 + "\r\n"
                    + "HTTPS状态为：" + _find.Status(output2.ToString());
         }
 
-        private string Com3(DeviceBasicInfo deviceInfo)
+        private string Com3(IDevice deviceInfo)
         {
-            var command0 = Command.MakeForAdb(deviceInfo, @"shell settings put global captive_portal_use_https 1");
-            var command1 = Command.MakeForAdb(deviceInfo,
-                @"shell settings put global captive_portal_http_url http://connect.rom.miui.com/generate_204");
-            var command2 = Command.MakeForAdb(deviceInfo,
-                @"shell settings put global captive_portal_https_url  https://connect.rom.miui.com/generate_204");
-            var command3 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_server");
-            var command4 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_use_https");
-            var command5 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_http_url");
-            var command6 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_https_url");
+            _executer.AdbShell(deviceInfo, @"settings put global captive_portal_use_https 1");
+            _executer.AdbShell(deviceInfo,
+                @"settings put global captive_portal_http_url http://connect.rom.miui.com/generate_204");
+            _executer.AdbShell(deviceInfo,
+                @"settings put global captive_portal_https_url  https://connect.rom.miui.com/generate_204");
+            var output1 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_server").Output.Out;
+            var output2 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_use_https").Output.Out;
+            var output3 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_http_url").Output.Out;
+            var output4 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_https_url").Output.Out;
 
-            executer.Execute(command0);
-            executer.Execute(command1);
-            executer.Execute(command2);
-            var output1 = executer.Execute(command3);
-            var output2 = executer.Execute(command4);
-            var output3 = executer.Execute(command5);
-            var output4 = executer.Execute(command6);
 
             return "当前设置检测服务器状态为：" + _find.Status(output1.ToString()) + "\r\n"
                    + "HTTPS状态为：" + _find.Status(output2.ToString()) + "\r\n"
@@ -74,25 +59,17 @@ namespace AutumnBoxExtension_Captiveportal.Classes
                    + "HTTPS_URL为：" + output4;
         }
 
-        private string Com4(DeviceBasicInfo deviceInfo)
+        private string Com4(IDevice deviceInfo)
         {
-            var command0 = Command.MakeForAdb(deviceInfo, @"shell settings put global captive_portal_use_https 1");
-            var command1 = Command.MakeForAdb(deviceInfo,
-                @"shell settings put global captive_portal_http_url http://connect.rom.miui.com/generate_204");
-            var command2 = Command.MakeForAdb(deviceInfo,
-                @"shell settings put global captive_portal_https_url  https://connect.rom.miui.com/generate_204");
-            var command3 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_mode");
-            var command4 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_use_https");
-            var command5 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_http_url");
-            var command6 = Command.MakeForAdb(deviceInfo, @"shell settings get global captive_portal_https_url");
-
-            executer.Execute(command0);
-            executer.Execute(command1);
-            executer.Execute(command2);
-            var output1 = executer.Execute(command3);
-            var output2 = executer.Execute(command4);
-            var output3 = executer.Execute(command5);
-            var output4 = executer.Execute(command6);
+            _executer.AdbShell(deviceInfo, @"settings put global captive_portal_use_https 1");
+            _executer.AdbShell(deviceInfo,
+                @"settings put global captive_portal_http_url http://connect.rom.miui.com/generate_204");
+            _executer.AdbShell(deviceInfo,
+                @"settings put global captive_portal_https_url  https://connect.rom.miui.com/generate_204");
+            var output1 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_mode").Output.Out;
+            var output2 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_use_https").Output.Out;
+            var output3 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_http_url").Output.Out;
+            var output4 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_https_url").Output.Out;
 
             return "当前设置检测服务器状态为：" + _find.Status(output1.ToString()) + "\r\n"
                    + "HTTPS状态为：" + _find.Status(output2.ToString()) + "\r\n"

@@ -4,8 +4,8 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using AutumnBox.OpenFramework.Extension;
 using AutumnBox.OpenFramework.ExtLibrary;
+using AutumnBox.OpenFramework.Wrapper;
 using Newtonsoft.Json;
 
 namespace AutumnBoxExtension_Captiveportal.Classes
@@ -42,16 +42,12 @@ namespace AutumnBoxExtension_Captiveportal.Classes
 
         public bool IsLastVersion()
         {
-            var info = new Dictionary<string, ExtInfoAttribute>();
-            var t = typeof(Captiveportal);
-            var b = t.GetCustomAttributes(typeof(ExtInfoAttribute), true);
-            foreach (ExtInfoAttribute eia in b)
-            {
-                info.Add(eia.Key, eia);
-            }
+            ClassExtensionScanner CType = new ClassExtensionScanner(typeof(Captiveportal));
 
-            var oldVersion = info["ExtVersionAttribute"].Value as Version;
+            CType.Scan((ClassExtensionScanner.ScanOption) 1);
+            var oldVersion = CType.Informations["VERSION"].Value as Version;
 
+            //Logger.Info(oldVersion.ToString());
             return oldVersion >= CConfig.version;
 
         }
