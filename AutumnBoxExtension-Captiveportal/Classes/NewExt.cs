@@ -23,7 +23,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
             {
                 try
                 {
-                    HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://gitee.com/monologuechi/AutumnBoxExtension-Captiveportal/raw/master/AutumnBoxExtension-Captiveportal/Captiveportal-info.json");
+                    HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://raw.githubusercontent.com/MonoLogueChi/AutumnBoxExtension-Captiveportal/master/AutumnBoxExtension-Captiveportal/Captiveportal-info.json");
                     HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                     Stream stream = resp.GetResponseStream();
                     using (StreamReader reader = new StreamReader(stream: stream, encoding: Encoding.UTF8, detectEncodingFromByteOrderMarks: true))
