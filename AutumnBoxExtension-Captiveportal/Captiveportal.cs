@@ -12,7 +12,7 @@ namespace AutumnBoxExtension_Captiveportal
     [ExtName("一键去除Wi-FI x和!号模块", "en-us:一键去除Wi-FI x和!号模块-暂定")]
     [ExtDesc("可以一键去除Wi-FI x和!号，该模块目前处于测试状态，不保证100%可用", "en-us:Could 一键去除Wi-FI x和!号，该模块目前处于测试状态，Can't 保证100%可用")]
     [ExtAuth("MonoLogueChi")]
-    [ExtVersion(0, minor: 0, build: 11)]
+    [ExtVersion(0, minor: 0, build: 12)]
     [ExtRequiredDeviceStates((DeviceState)2)]   //开机状态使用
     [ExtMinApi(value: 8)]
     [ExtTargetApi(value: 8)]

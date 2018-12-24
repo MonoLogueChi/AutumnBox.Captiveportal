@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Policy;
 using AutumnBox.Basic.Device;
 using AutumnBox.Basic.Calling;
 
@@ -8,6 +9,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
     {
         private readonly FindStatus _find = new FindStatus();
         private readonly CommandExecutor _executer = new CommandExecutor();
+        const string _url = "connect.rom.miui.com/generate_204";
 
         public string V2N(Version version, IDevice deviceInfo)
         {
@@ -22,7 +24,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
         private string Com1(IDevice deviceInfo)
         {
             _executer.AdbShell(deviceInfo,
-                @"settings put global captive_portal_server connect.rom.miui.com/generate_204");
+                $"settings put global captive_portal_server {_url}");
             var output1 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_server").Output.Out;
 
             return "当前设置检测服务器为：" + output1;
@@ -32,9 +34,9 @@ namespace AutumnBoxExtension_Captiveportal.Classes
         {
             _executer.AdbShell(deviceInfo, @"settings put global captive_portal_use_https 1");
             _executer.AdbShell(deviceInfo,
-                @"settings put global captive_portal_server connect.rom.miui.com/generate_204");
-            var output1 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_server").Output.Out;
-            var output2 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_use_https").Output.Out;
+                $"settings put global captive_portal_server {_url}");
+            var output1 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_server").Output.Out;
+            var output2 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_use_https").Output.Out;
 
             return "当前设置检测服务器为：" + output1 + "\r\n"
                    + "HTTPS状态为：" + _find.Status(output2);
@@ -44,13 +46,13 @@ namespace AutumnBoxExtension_Captiveportal.Classes
         {
             _executer.AdbShell(deviceInfo, @"settings put global captive_portal_use_https 1");
             _executer.AdbShell(deviceInfo,
-                @"settings put global captive_portal_http_url http://connect.rom.miui.com/generate_204");
+                $"settings put global captive_portal_http_url http://{_url}");
             _executer.AdbShell(deviceInfo,
-                @"settings put global captive_portal_https_url  https://connect.rom.miui.com/generate_204");
-            var output1 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_server").Output.Out;
-            var output2 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_use_https").Output.Out;
-            var output3 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_http_url").Output.Out;
-            var output4 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_https_url").Output.Out;
+                $"settings put global captive_portal_https_url  https://{_url}");
+            var output1 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_server").Output.Out;
+            var output2 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_use_https").Output.Out;
+            var output3 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_http_url").Output.Out;
+            var output4 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_https_url").Output.Out;
 
 
             return "当前设置检测服务器状态为：" + _find.Status(output1) + "\r\n"
@@ -63,9 +65,9 @@ namespace AutumnBoxExtension_Captiveportal.Classes
         {
             _executer.AdbShell(deviceInfo, @"settings put global captive_portal_use_https 1");
             _executer.AdbShell(deviceInfo,
-                @"settings put global captive_portal_http_url http://connect.rom.miui.com/generate_204");
+                $"settings put global captive_portal_http_url http://{_url}");
             _executer.AdbShell(deviceInfo,
-                @"settings put global captive_portal_https_url  https://connect.rom.miui.com/generate_204");
+                $"settings put global captive_portal_https_url  https://{_url}");
             var output1 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_mode").Output.Out;
             var output2 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_use_https").Output.Out;
             var output3 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_http_url").Output.Out;
