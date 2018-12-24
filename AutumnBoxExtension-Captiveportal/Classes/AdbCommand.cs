@@ -37,7 +37,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
             var output2 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_use_https").Output.Out;
 
             return "当前设置检测服务器为：" + output1 + "\r\n"
-                   + "HTTPS状态为：" + _find.Status(output2.ToString());
+                   + "HTTPS状态为：" + _find.Status(output2);
         }
 
         private string Com3(IDevice deviceInfo)
@@ -53,8 +53,8 @@ namespace AutumnBoxExtension_Captiveportal.Classes
             var output4 =  _executer.AdbShell(deviceInfo, @"settings get global captive_portal_https_url").Output.Out;
 
 
-            return "当前设置检测服务器状态为：" + _find.Status(output1.ToString()) + "\r\n"
-                   + "HTTPS状态为：" + _find.Status(output2.ToString()) + "\r\n"
+            return "当前设置检测服务器状态为：" + _find.Status(output1) + "\r\n"
+                   + "HTTPS状态为：" + _find.Status(output2) + "\r\n"
                    + "HTTP_URL为：" + output3 + "\r\n"
                    + "HTTPS_URL为：" + output4;
         }
@@ -71,8 +71,8 @@ namespace AutumnBoxExtension_Captiveportal.Classes
             var output3 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_http_url").Output.Out;
             var output4 = _executer.AdbShell(deviceInfo, @"settings get global captive_portal_https_url").Output.Out;
 
-            return "当前设置检测服务器状态为：" + _find.Status(output1.ToString()) + "\r\n"
-                   + "HTTPS状态为：" + _find.Status(output2.ToString()) + "\r\n"
+            return "当前设置检测服务器状态为：" + _find.Status(output1) + "\r\n"
+                   + "HTTPS状态为：" + _find.Status(output2) + "\r\n"
                    + "HTTP_URL为：" + output3 + "\r\n"
                    + "HTTPS_URL为：" + output4;
         }
