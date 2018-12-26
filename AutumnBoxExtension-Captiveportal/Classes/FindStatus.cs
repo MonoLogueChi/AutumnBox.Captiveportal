@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutumnBoxExtension_Captiveportal.Classes
+﻿namespace AutumnBoxExtension_Captiveportal.Classes
 {
     class FindStatus
     {

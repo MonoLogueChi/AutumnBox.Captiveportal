@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -16,6 +15,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
         public override int MinApiLevel { get; } = 8;
         public override int TargetApiLevel { get; } = 8;
         public static CConfig CConfig { get; set; } = new CConfig();
+        public static bool IsLastVersion;
 
         public override void Ready()
         {
@@ -32,6 +32,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
                         reader.Close();
                         CConfig = JsonConvert.DeserializeObject<CConfig>(configStr);
                     }
+                    IsLastVersion = IsLastVersionF();
                 }
                 catch (Exception)
                 {
@@ -40,7 +41,7 @@ namespace AutumnBoxExtension_Captiveportal.Classes
             });
         }
 
-        public bool IsLastVersion()
+        public static bool IsLastVersionF()
         {
             ClassExtensionScanner CType = new ClassExtensionScanner(typeof(Captiveportal));
 

@@ -12,7 +12,7 @@ namespace AutumnBoxExtension_Captiveportal
     [ExtName("一键去除Wi-FI x和!号模块", "en-us:一键去除Wi-FI x和!号模块-暂定")]
     [ExtDesc("可以一键去除Wi-FI x和!号，该模块目前处于测试状态，不保证100%可用", "en-us:Could 一键去除Wi-FI x和!号，该模块目前处于测试状态，Can't 保证100%可用")]
     [ExtAuth("MonoLogueChi")]
-    [ExtVersion(0, minor: 0, build: 12)]
+    [ExtVersion(0, minor: 0, build: 13)]
     [ExtRequiredDeviceStates((DeviceState)2)]   //开机状态使用
     [ExtMinApi(value: 8)]
     [ExtTargetApi(value: 8)]
@@ -23,10 +23,9 @@ namespace AutumnBoxExtension_Captiveportal
         {
             var devBasicInfo = TargetDevice;
             var androidVersion = new DeviceBuildPropGetter(devBasicInfo).GetAndroidVersion();
-            var newExt = new NewExt();
             try
             {
-                if (!newExt.IsLastVersion())
+                if (!NewExt.IsLastVersion)
                 {
                     var ynGetNew = Ux.DoChoice($"检测到新版本，是否立即下载更新 \r\n  新版本更新日期：{NewExt.CConfig.date}",
                         btnLeft: "否,继续执行", btnRight: "是，马上更新");
