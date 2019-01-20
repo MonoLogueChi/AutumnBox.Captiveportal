@@ -19,7 +19,7 @@ namespace AutumnBoxExtension_Captiveportal
     [ExtIcon(@"Resources.icon.png")]
     public class Captiveportal : LeafExtensionBase
     {
-        public int Main(IUx ux, ILogger Logger, IDevice DeviceNow)
+        public int Main(IUx ux, ILeafUI ui, ILogger Logger, IDevice DeviceNow)
         {
             var devBasicInfo = DeviceNow;
             var androidVersion = new DeviceBuildPropGetter(devBasicInfo).GetAndroidVersion();
@@ -47,25 +47,37 @@ namespace AutumnBoxExtension_Captiveportal
 
             //这些是去除X号操作
             string st1 = null;
-            ux.ShowLoadingWindow();
-            try
+
+            using (ui)
             {
-                st1 = new AdbCommand().V2N(androidVersion, devBasicInfo);
-            }
-            catch (Exception)
-            {
-                Logger.Warn(msg: "执行ADB命令错误");
-            }
-            ux.CloseLoadingWindow();
-            ux.RunOnUIThread(() =>
-            {
-                var ynReboot = ux.DoChoice(message: st1 + "\r\n 是否重启测试一下结果",
-                    btnLeft: "再等等", btnRight: "现在重启");
-                if (ynReboot == ChoiceResult.Right)
+                ui.Title = "正在设置";
+                ui.Icon = this.GetIconBytes();
+
+                ui.Show();
+                ui.Progress = 0.1;
+
+                try
                 {
-                    devBasicInfo.Reboot2System();
+                    st1 = new AdbCommand().V2N(androidVersion, devBasicInfo);
                 }
-            });
+                catch (Exception)
+                {
+                    Logger.Warn(msg: "执行ADB命令错误");
+                }
+                ui.WriteLine(st1);
+                ui.Progress = 0.8;
+                ux.RunOnUIThread(() =>
+                {
+                    var ynReboot = ux.DoChoice(message: st1 + "\r\n 是否重启测试一下结果",
+                        btnLeft: "再等等", btnRight: "现在重启");
+                    if (ynReboot == ChoiceResult.Right)
+                    {
+                        devBasicInfo.Reboot2System();
+                    }
+                });
+                ui.Progress = 1;
+                ui.Finish();
+            }
             return 0;
         }
     }
