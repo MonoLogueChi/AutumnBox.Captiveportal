@@ -54,7 +54,7 @@ namespace AutumnBoxExtension_Captiveportal
                 ui.Icon = this.GetIconBytes();
 
                 ui.Show();
-                ui.Progress = 0.1;
+                ui.Progress = 10;
 
                 try
                 {
@@ -65,7 +65,7 @@ namespace AutumnBoxExtension_Captiveportal
                     Logger.Warn(msg: "执行ADB命令错误");
                 }
                 ui.WriteLine(st1);
-                ui.Progress = 0.8;
+                ui.Progress = 80;
                 ux.RunOnUIThread(() =>
                 {
                     var ynReboot = ux.DoChoice(message: st1 + "\r\n 是否重启测试一下结果",
