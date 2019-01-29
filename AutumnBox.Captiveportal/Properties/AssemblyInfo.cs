@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("AutumnBoxExtension-Captiveportal")]
+[assembly: AssemblyTitle("AutumnBox.Captiveportal")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AutumnBoxExtension-Captiveportal")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("AutumnBox.Captiveportal")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("5355d22e-5ef8-4291-956d-09106bd110a6")]
+[assembly: Guid("79b5263e-5b08-4de6-bfbf-9003e29fffb3")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
