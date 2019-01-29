@@ -23,7 +23,6 @@ namespace AutumnBox.Captiveportal
             //获取安卓版本
             var androidVersion = new DeviceBuildPropGetter(devices).GetAndroidVersion();
             //启动时检测更新
-
             if (!NewExt.IsLastVersion)
             {
                 var ynGetNew = ui.DoChoice($"检测到新版本，是否立即下载更新 \r\n  新版本更新日期：{NewExt.CConfig.date}",
@@ -38,7 +37,6 @@ namespace AutumnBox.Captiveportal
                         return;
                 }
             }
-
 
             //消除X号
             string st1 = null;
@@ -62,11 +60,11 @@ namespace AutumnBox.Captiveportal
                 {
                     devices.Reboot2System();
                 }
-
+                ui.Title = "设置完成";
                 ui.Progress = 100;
                 ui.Finish();
+                return;
             }
-            return;
         }
     }
 }
