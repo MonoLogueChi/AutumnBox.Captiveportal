@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using AutumnBox.Basic.Device;
+﻿using AutumnBox.Basic.Device;
 using AutumnBox.Basic.Device.Management.OS;
 using AutumnBox.OpenFramework.Extension;
 using AutumnBox.OpenFramework.Extension.LeafExtension;
@@ -20,9 +18,9 @@ namespace AutumnBox.Captiveportal
     {
         public void Main(ILeafUI ui, ILogger logger, IDevice devices)
         {
-            //获取安卓版本
-            var androidVersion = new DeviceBuildPropGetter(devices).GetAndroidVersion();
+
             //启动时检测更新
+            /*
             if (!NewExt.IsLastVersion)
             {
                 var ynGetNew = ui.DoChoice($"检测到新版本，是否立即下载更新 \r\n  新版本更新日期：{NewExt.CConfig.date}",
@@ -37,6 +35,11 @@ namespace AutumnBox.Captiveportal
                         return;
                 }
             }
+            */
+            
+
+            //获取安卓版本
+            var androidVersion = new DeviceBuildPropGetter(devices).GetAndroidVersion();
 
             //消除X号
             string st1 = null;
@@ -45,6 +48,8 @@ namespace AutumnBox.Captiveportal
             {
                 ui.Title = "正在设置";
                 ui.Icon = this.GetIconBytes();
+
+                ui.ShowMessage($"注意，此版本暂时删除了检查更新功能，最新版本请自行到官网查看 \r\n 某些旧版本可能会存在意想不到的问题，建议使用最新版本 \r\n 当前版本：{new VS().GetThisVersion()}");
 
                 ui.Show();
                 ui.Progress = 10;

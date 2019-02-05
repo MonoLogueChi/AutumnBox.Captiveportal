@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 namespace AutumnBox.Captiveportal
 {
+    /*
     /// <summary>
     /// 检测更新
     /// </summary>
@@ -43,12 +44,8 @@ namespace AutumnBox.Captiveportal
 
         public static bool IsLastVersionF()
         {
-            ClassExtensionScanner CType = new ClassExtensionScanner(typeof(Captiveportal));
+            var oldVersion = new VS().GetThisVersion();
 
-            CType.Scan((ClassExtensionScanner.ScanOption)1);
-            var oldVersion = CType.Informations["VERSION"].Value as Version;
-
-            //Logger.Info(oldVersion.ToString());
             return oldVersion >= CConfig.version;
 
         }
@@ -59,6 +56,19 @@ namespace AutumnBox.Captiveportal
         public string date { get; set; }
         public string url { get; set; }
     }
+    */
+
+    public class VS
+    {
+        public Version GetThisVersion()
+        {
+            ClassExtensionScanner CType = new ClassExtensionScanner(typeof(Captiveportal));
+
+            CType.Scan((ClassExtensionScanner.ScanOption)1);
+            return CType.Informations["VERSION"].Value as Version;
+        }
+    }
+
 
     /// <summary>
     /// adb命令
@@ -77,6 +87,7 @@ namespace AutumnBox.Captiveportal
             if (version < Version.Parse("100.0.0")) return Com4(deviceInfo);
             return "未知版本";
         }
+        
 
         private string Com1(IDevice deviceInfo)
         {
