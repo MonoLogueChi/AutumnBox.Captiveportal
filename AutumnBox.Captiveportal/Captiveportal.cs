@@ -1,7 +1,11 @@
-﻿using AutumnBox.Basic.Device;
+﻿using System;
+using AutumnBox.Basic.Device;
 using AutumnBox.Basic.Device.Management.OS;
+using AutumnBox.Logging;
 using AutumnBox.OpenFramework.Extension;
-using AutumnBox.OpenFramework.Extension.LeafExtension;
+using AutumnBox.OpenFramework.LeafExtension;
+using AutumnBox.OpenFramework.LeafExtension.Fast;
+using AutumnBox.OpenFramework.LeafExtension.Kit;
 using AutumnBox.OpenFramework.Open;
 
 namespace AutumnBox.Captiveportal
@@ -36,7 +40,7 @@ namespace AutumnBox.Captiveportal
                 }
             }
             */
-            
+
 
             //获取安卓版本
             var androidVersion = new DeviceBuildPropGetter(devices).GetAndroidVersion();
