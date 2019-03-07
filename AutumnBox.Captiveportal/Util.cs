@@ -1,75 +1,9 @@
 ﻿using System;
-using System.Net;
-using System.Threading.Tasks;
 using AutumnBox.Basic.Calling;
 using AutumnBox.Basic.Device;
-using AutumnBox.OpenFramework.ExtLibrary;
-using AutumnBox.OpenFramework.Wrapper;
-using Newtonsoft.Json;
 
 namespace AutumnBox.Captiveportal
 {
-    /*
-    /// <summary>
-    /// 检测更新
-    /// </summary>
-    public class NewExt : ExtensionLibrarin
-    {
-        public override string Name { get; } = "Captiveportal";
-        public override int MinApiLevel { get; } = 8;
-        public override int TargetApiLevel { get; } = 8;
-        public static CConfig CConfig { get; set; } = new CConfig();
-        public static bool IsLastVersion;
-
-        public override void Ready()
-        {
-            Task.Run(() =>
-            {
-                try
-                {
-                    using (WebClient webClient = new WebClient())
-                    {
-                        string configStr = webClient.DownloadString(new Uri("https://raw.githubusercontent.com/MonoLogueChi/AutumnBox.Captiveportal/master/AutumnBox.Captiveportal/Captiveportal-info.json"));
-                        CConfig = JsonConvert.DeserializeObject<CConfig>(configStr);
-                    }
-                    IsLastVersion = IsLastVersionF();
-                }
-                catch (Exception)
-                {
-                    IsLastVersion = true;
-                    Logger.Info("检查更新失败，请检查网络连接");
-                }
-            });
-        }
-
-        public static bool IsLastVersionF()
-        {
-            var oldVersion = new VS().GetThisVersion();
-
-            return oldVersion >= CConfig.version;
-
-        }
-    }
-    public class CConfig
-    {
-        public Version version { get; set; }
-        public string date { get; set; }
-        public string url { get; set; }
-    }
-    */
-
-    public class VS
-    {
-        public Version GetThisVersion()
-        {
-            ClassExtensionScanner CType = new ClassExtensionScanner(typeof(Captiveportal));
-
-            CType.Scan((ClassExtensionScanner.ScanOption)1);
-            return CType.Informations["VERSION"].Value as Version;
-        }
-    }
-
-
     /// <summary>
     /// adb命令
     /// </summary>
@@ -87,7 +21,7 @@ namespace AutumnBox.Captiveportal
             if (version < Version.Parse("100.0.0")) return Com4(deviceInfo);
             return "未知版本";
         }
-        
+
 
         private string Com1(IDevice deviceInfo)
         {
@@ -153,6 +87,5 @@ namespace AutumnBox.Captiveportal
             if (n.Contains("0")) return "关闭";
             return "未知状态";
         }
-
     }
 }
